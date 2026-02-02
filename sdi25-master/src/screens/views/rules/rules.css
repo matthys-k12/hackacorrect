@@ -1,0 +1,14 @@
+.personalized-animation {
+    animation: slideFromBottom 0.4s ease-in-out forwards;
+}
+
+@keyframes slideFromBottom {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

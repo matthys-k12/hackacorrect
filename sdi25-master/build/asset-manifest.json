@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.210e42bf.css",
+    "main.js": "/static/js/main.501f5341.js",
+    "static/js/511.f310fe8f.chunk.js": "/static/js/511.f310fe8f.chunk.js",
+    "static/media/song.mp3": "/static/media/song.32c64bf1785f966b9e7e.mp3",
+    "static/media/logoHackathon-PhotoRoom2.png": "/static/media/logoHackathon-PhotoRoom2.8b1ce0f409090cb345b7.png",
+    "static/media/logoHackathon-PhotoRoom.png": "/static/media/logoHackathon-PhotoRoom.0f23db818aa2f9307b53.png",
+    "static/media/logoSDI-PhotoRoom.png": "/static/media/logoSDI-PhotoRoom.4973351e27cf7081e5be.png",
+    "static/media/innovationWeek.png": "/static/media/innovationWeek.eb524427c9d0fc0823ab.png",
+    "static/media/jetic.png": "/static/media/jetic.aaa92435f5832a7412e5.png",
+    "static/media/innovationRoom.png": "/static/media/innovationRoom.9a2b8a20cb70262d5f8c.png",
+    "index.html": "/index.html",
+    "main.210e42bf.css.map": "/static/css/main.210e42bf.css.map",
+    "main.501f5341.js.map": "/static/js/main.501f5341.js.map",
+    "511.f310fe8f.chunk.js.map": "/static/js/511.f310fe8f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.210e42bf.css",
+    "static/js/main.501f5341.js"
+  ]
+}

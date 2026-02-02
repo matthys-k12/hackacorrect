@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
+
+.quiz--wrapper {
+  justify-content: center;
+  place-items: center;
+  color: #11052c;
+  padding: 0 30px;
+  display: flex;
+  width: 100vw;
+  height: 90vh;
+  margin: 0;
+}
+
+.quiz-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0px 4px 16px #dbdbdb;
+  min-height: 150px;
+  width: 550px;
+  padding: 40px 60px;
+  background-color: rgb(255, 255, 255);
+}
+
+@media screen and (max-width : 490px) {
+  .quiz-container {
+    border-radius: 10px;
+    box-shadow: 0px 0px 0px #dbdbdb;
+    min-height: 200px;
+    width: 550px;
+    padding: 40px 0px;
+    background-color: transparent;
+  }
+}
+
+.quiz-container .active-question-no {
+  font-size: 32px;
+  font-weight: 500;
+  color: orangered;
+}
+
+.quiz-container .total-question {
+  font-size: 16px;
+  font-weight: 500;
+  color: #e0dee3;
+}
+
+.quiz-container h2 {
+  font-size: 20px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.quiz-container ul {
+  margin-top: 20px;
+  margin-left: -40px;
+}
+
+.quiz-container ul li {
+  text-decoration: none;
+  list-style: none;
+  color: #2d264b;
+  font-size: 16px;
+  background: #ffffff;
+  border: 1px solid #eaeaea;
+  border-radius: 16px;
+  padding: 11px;
+  margin-top: 15px;
+  margin-left: 40px;
+  cursor: pointer;
+}
+
+.quiz-container ul .selected-answer {
+  background: rgb(255, 112, 59);
+  font-weight: 800;
+  color: white;
+  transition: .3s;
+}
+
+.quiz-container button {
+  background-color: rgb(255, 99, 42);
+  border-radius: 100px;
+  font-size: 18px;
+  font-weight: 600;
+  color: #ffffff;
+  padding: 10px 30px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.quiz-container button:disabled {
+  background: #e7e8e9;
+  color: #9fa3a9;
+  cursor: not-allowed;
+}
+
+.flex-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.result h3 {
+  font-size: 24px;
+  letter-spacing: 1.4px;
+  text-align: center;
+}
+
+.result p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.result p span {
+  color: #800080;
+  font-size: 22px;
+}

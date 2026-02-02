@@ -1,0 +1,330 @@
+// @import "~flickity/css/flickity.css";
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-Black.ttf") format("truetype");
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-BlackItalic.ttf") format("truetype");
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-Heavy.ttf") format("truetype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-HeavyItalic.ttf") format("truetype");
+  font-weight: 800;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-ExtraBold.ttf") format("truetype");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-ExtraBoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-Bold.ttf") format("truetype");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-BoldItalic.ttf") format("truetype");
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-SemiBold.ttf") format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-Medium.ttf") format("truetype");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-MediumItalic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-Regular.ttf") format("truetype");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-RegularItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-UltraLight.ttf") format("truetype");
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-UltraLightItalic.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-Thin.ttf") format("truetype");
+  font-weight: 100;
+}
+
+@font-face {
+  font-family: "Gilroy";
+  src: url("../../assets/font/Gilroy-ThinItalic.ttf") format("truetype");
+  font-weight: 100;
+  font-style: italic;
+}
+
+nav {
+  z-index: 999;
+
+  li {
+    font-size: 16px;
+  }
+}
+
+.Pannel--container {
+  width: 100vw;
+  font-family: Gilroy;
+
+  background-size: 150px 150px;
+  background-image: linear-gradient(
+      to top,
+      rgb(248, 248, 248) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to left, rgb(248, 248, 248) 1px, transparent 1px);
+}
+
+section {
+
+  .container {
+    max-width: 1300px;
+    margin: 0 auto;
+    height: 100%;
+
+    .container--left {
+      max-width: 650px;
+    }
+  }
+}
+
+.hero--section::before {
+  content: "";
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: -100px;
+  background-image: url("../../assets/pannel/images/polygon-bg-element.svg");
+  background-position: top;
+  background-size: cover;
+}
+
+@media screen and (max-width: 988px) {
+  .container--right {
+    display: none;
+  }
+  .container--left {
+    width: 100%;
+  }
+  section {
+    padding: 80px 0;
+  }
+}
+
+.introduction {
+  padding: 120px 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  .introduction--subtitle p {
+    opacity: 0.7;
+  }
+
+  .introduction--right {
+    max-width: 700px;
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .introduction {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .introduction--right {
+    max-width: 100% !important;
+  }
+  .introduction--left {
+    width: 100%;
+  }
+  .introduction--subtitle p {
+    width: 350px !important;
+  }
+  .pannel--starting--left {
+    display: none;
+  }
+  .pannel--starting--right {
+    margin-left: 0px !important;
+  }
+}
+
+.start--section {
+  padding: 120px 10px;
+  background-size: cover;
+
+  background-size: 150px 150px;
+  background-image: linear-gradient(
+      to top,
+      rgb(42, 42, 42) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to left, rgb(42, 42, 42) 1px, transparent 1px);
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 50px;
+  }
+
+  .pannel--starting {
+    display: flex;
+
+    .introduction--subtitle {
+      opacity: 0.7;
+    }
+
+    .pannel--starting--right {
+      margin-left: 5em;
+      max-width: 700px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+}
+
+.pannel--section {
+  //   background-image: url("../assets/pannel/images/pannel-lines-verctors.svg");
+  background-size: cover;
+  padding: 120px 10px;
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .pannelist {
+    place-items: start;
+
+    .pannelist--right {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      p {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1340px) {
+  .pannelist {
+    flex-direction: column;
+  }
+}
+
+.companies--section {
+  padding: 120px 10px;
+
+  background-size: 150px 150px;
+  background-image: linear-gradient(
+      to top,
+      rgb(42, 42, 42) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to left, rgb(42, 42, 42) 1px, transparent 1px);
+
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  justify-content: center;
+}
+
+.sponsors {
+  padding: 120px 10px;
+  padding: 100px 0;
+  margin-top: 100px;
+  padding: 35px 0 !important;
+  margin-bottom: 100px;
+}
+
+.gallery--section {
+  padding: 120px 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.svg-color {
+  filter: invert(26%) sepia(1%) saturate(3319%) hue-rotate(325deg)
+    brightness(98%) contrast(96%);
+}
+
+.container--slider {
+  overflow: hidden;
+
+  .sub--container--slider {
+    width: 350px;
+  }
+}

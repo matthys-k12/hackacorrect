@@ -1,0 +1,106 @@
+@import url("https://fonts.cdnfonts.com/css/montserrat");
+@import url('https://fonts.cdnfonts.com/css/vic');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.hero--title {
+  font-family: 'VIC', sans-serif;
+  font-weight: 700;
+}
+
+label {
+  font-family: "Montserrat", sans-serif;
+}
+
+table {
+  font-family: "Montserrat", sans-serif;
+}
+
+h5 {
+  font-family: "Montserrat", sans-serif !important;
+}
+
+input::placeholder {
+  font-family: "Montserrat", sans-serif;
+  opacity: 0.4 !important;
+}
+
+button {
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 12px !important;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.background-p {
+  background-color: rgb(252, 252, 252);
+  background-image: radial-gradient(
+    circle,
+    rgb(228, 228, 231) 0.0625rem,
+    transparent 0.0625rem
+  );
+  background-size: 1.25rem 1.25rem;
+  gap: 1.25rem;
+}
+
+@media screen and (max-width: 500px) {
+  .background-p {
+    background-color: rgb(255, 255, 255);
+    background-image: radial-gradient(
+      circle,
+      rgb(255, 255, 255) 0.0625rem,
+      transparent 0.0625rem
+    );
+  }
+}
+
+.barre {
+  position: relative;
+}
+
+.barre::before {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  background-color: #f94c10;
+  height: 4px;
+  border-radius: 4px;
+  transition: 0.7s;
+}
+
+.barre:hover::before {
+  width: 100%;
+  transition: 0.7s;
+}
+
+select {
+  -webkit-appearance: none;
+  font-family: "Montserrat", sans-serif;
+}
+
+.montserrat {
+  font-family: "Montserrat", sans-serif !important;
+}
