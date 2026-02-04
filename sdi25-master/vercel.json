@@ -1,10 +1,9 @@
 {
-    "rewrites": [
-      {
-        "source": "/api/:path*",
-        "destination": "https://backend-api.notresdi25-c2e.com/api/:path*"
-      }
-    ],
-    "trailingSlash": false
-  }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
+
+
+
   
