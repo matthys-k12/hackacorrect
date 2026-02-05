@@ -1,8 +1,12 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ]
-}
+    "rewrites": [
+      {
+        "source": "/api/:path*",
+        "destination": "https://hackathon26-backend-2.onrender.com"
+      }
+    ],
+    "trailingSlash": false
+  }
 
 
 
