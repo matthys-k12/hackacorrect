@@ -26,6 +26,16 @@ interface LeaderInformation {
   class: number;
 }
 
+interface LevelOption {
+  value: number;
+  label: string;
+  classes: ClassOption[];
+}
+
+interface ClassOption {
+  value: number;
+  label: string;
+}
 
 export default function RegistrationStep2({
   previousStep,
@@ -34,164 +44,187 @@ export default function RegistrationStep2({
   previousStep: any;
   nextStep: any;
 }) {
-  // get variable come from esatic
-
-  const [comeFromEsatic, setComeFromEsatic] = useState(Boolean);
-  const [baseLevel, setBaseLevel] = useState([]);
+  // États
+  const [comeFromEsatic, setComeFromEsatic] = useState<boolean>(false);
+  const [baseLevel, setBaseLevel] = useState<LevelOption[]>([]);
   const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const storedData = secureLocalStorage.getItem("comeFromEsatic");
-
-    if (storedData === true || storedData === false) {
-      setComeFromEsatic(storedData);
-      if (!storedData) {
-        setListClass(listSchool);
-      }
-
-      const data = {
-        esatic: storedData === true ? 1 : 0,
-      };
-
-      handleServiceGetLevelsList(data).then((result) => {
-        const temp = result.niveaux.map(
-          (item: { id: unknown; libelle: string; classes: any }) => ({
-            value: item.id,
-            label: item.libelle,
-            classes: item.classes.map((classe: { id: any; libelle: any }) => ({
-              value: classe.id,
-              label: classe.libelle,
-            })),
-          })
-        );
-
-        secureLocalStorage.setItem("levelsList", temp);
-        setBaseLevel(temp);
-      });
-    }
-    const storedLeaderInfo = secureLocalStorage.getItem("leaderInformation") as LeaderInformation | null;
-
-if (storedLeaderInfo) {
-  setTeamName(storedLeaderInfo.teamName);
-  setMatricule(storedLeaderInfo.matricule);
-  setLastname(storedLeaderInfo.lastName);
-  setFirstname(storedLeaderInfo.firstName);
-  setEmail(storedLeaderInfo.email);
-  setFilterValue(getOptionValue(baseLevelList, storedLeaderInfo.level));
-  setGenderValue(getOptionValue(listGender, storedLeaderInfo.gender));
-  setClassValue(getOptionValue(listClass, storedLeaderInfo.class));
-}
-
-
-    // const leaderInformation = secureLocalStorage.getItem("leaderInformation");
-
-    // if (leaderInformation) {
-    //   setTeamName(leaderInformation["teamName"]);
-    //   setMatricule(leaderInformation["matricule"]);
-    //   setLastname(leaderInformation["lastName"]);
-    //   setFirstname(leaderInformation["firstName"]);
-    //   setEmail(leaderInformation["email"]);
-    //   setFilterValue(getOptionValue(baseLevelList, leaderInformation["level"]));
-    //   setGenderValue(getOptionValue(listGender, leaderInformation["gender"]));
-    //   setClassValue(getOptionValue(listClass, leaderInformation["class"]));
-    // }
-
-    setIsReady(true);
-  }, []);
-
-  // gestion du select de Niveau
-
-  const baseLevelList = baseLevel;
+  const [teamName, setTeamName] = useState("");
+  const [matricule, setMatricule] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [email, setEmail] = useState("");
   const [filterLevelValue, setFilterValue] = useState(0);
-  const handleLevelChange = (selectedOption: { value: number }) => {
-    setFilterValue(selectedOption.value);
+  const [GenderValue, setGenderValue] = useState(0);
+  const [ClassValue, setClassValue] = useState(0);
+  const [listClass, setListClass] = useState<ClassOption[]>([]);
 
-    if (!comeFromEsatic) {
-      setListClass(listSchool);
-      return true;
-    }
-
-    switchList(selectedOption.value);
-  };
-
-  const switchList = (value: any) => {
-    baseLevel.forEach((level) => {
-      if (level["value"] === value) {
-        setListClass(level["classes"]);
-      }
-    });
-  };
-
-  // list of students of others school
-
+  const listGender = baseListGender;
   const listSchool = otherSchool;
 
-  // Gestion du select de Genre
+  // 🔥 Chargement des données au montage du composant
+  useEffect(() => {
+    const initializeData = async () => {
+      try {
+        console.log("🔵 1. Début du chargement des données");
 
-  const [GenderValue, setGenderValue] = useState(0);
-  const listGender = baseListGender;
+        // Récupérer comeFromEsatic
+        const storedData = secureLocalStorage.getItem("comeFromEsatic");
+        console.log("🔵 2. comeFromEsatic:", storedData);
 
-  const handleGenderChange = (selectedOption: {
-    value: React.SetStateAction<number>;
-  }) => {
+        if (storedData !== true && storedData !== false) {
+          console.log("❌ comeFromEsatic n'est pas défini correctement");
+          setIsReady(true);
+          return;
+        }
+
+        const isEsatic = storedData === true;
+        setComeFromEsatic(isEsatic);
+
+        // Si pas ESATIC, utiliser la liste des autres écoles
+        if (!isEsatic) {
+          setListClass(listSchool);
+        }
+
+        // Préparer les données pour l'API
+        const data = {
+          esatic: isEsatic ? 1 : 0,
+        };
+
+        console.log("🔵 3. Envoi des données à l'API:", data);
+
+        // 🔥 Appel API - AWAIT est important ici
+        const result = await handleServiceGetLevelsList(data);
+
+        console.log("🔵 4. Résultat de l'API:", result);
+
+        if (result && result.niveaux) {
+          console.log("🔵 5. Niveaux reçus:", result.niveaux);
+
+          // Transformer les données
+          const temp: LevelOption[] = result.niveaux.map(
+            (item: { id: number; libelle: string; classes: any[] }) => {
+              console.log("🔵 6. Mapping niveau:", item.libelle);
+              return {
+                value: item.id,
+                label: item.libelle,
+                classes: item.classes.map((classe: { id: number; libelle: string }) => ({
+                  value: classe.id,
+                  label: classe.libelle,
+                })),
+              };
+            }
+          );
+
+          console.log("🔵 7. Données transformées:", temp);
+
+          setBaseLevel(temp);
+          secureLocalStorage.setItem("levelsList", temp);
+
+          console.log("✅ Niveaux chargés avec succès:", temp.length, "niveaux");
+        } else {
+          console.log("❌ Aucune donnée de niveaux reçue");
+        }
+
+        // Récupérer les informations du leader si elles existent
+        const storedLeaderInfo = secureLocalStorage.getItem("leaderInformation") as LeaderInformation | null;
+
+        if (storedLeaderInfo) {
+          console.log("🔵 8. Restauration des infos du leader:", storedLeaderInfo);
+          
+          setTeamName(storedLeaderInfo.teamName);
+          setMatricule(storedLeaderInfo.matricule);
+          setLastname(storedLeaderInfo.lastName);
+          setFirstname(storedLeaderInfo.firstName);
+          setEmail(storedLeaderInfo.email);
+          setFilterValue(storedLeaderInfo.level);
+          
+          const genderValue = getOptionValue(listGender, storedLeaderInfo.gender);
+          if (genderValue !== undefined) {
+            setGenderValue(genderValue);
+          }
+          
+          setClassValue(storedLeaderInfo.class);
+
+          // Si ESATIC et qu'on a un niveau, charger les classes
+          if (isEsatic && storedLeaderInfo.level && baseLevel.length > 0) {
+            const selectedLevel = baseLevel.find((level) => level.value === storedLeaderInfo.level);
+            if (selectedLevel && selectedLevel.classes) {
+              setListClass(selectedLevel.classes);
+            }
+          }
+        }
+
+        console.log("✅ Initialisation terminée");
+        setIsReady(true);
+
+      } catch (error) {
+        console.error("❌ Erreur lors de l'initialisation:", error);
+        setIsReady(true); // Afficher quand même le formulaire
+      }
+    };
+
+    initializeData();
+  }, []);
+
+  // Gestion du changement de niveau
+  const handleLevelChange = (selectedOption: { value: number }) => {
+    console.log("🔵 Niveau sélectionné:", selectedOption.value);
+    setFilterValue(selectedOption.value);
+    setClassValue(0); // Réinitialiser la classe
+
+    if (!comeFromEsatic) {
+      console.log("🔵 Pas ESATIC, utilisation de listSchool");
+      setListClass(listSchool);
+      return;
+    }
+
+    // Trouver les classes du niveau sélectionné
+    const selectedLevel = baseLevel.find((level) => level.value === selectedOption.value);
+    console.log("🔵 Niveau trouvé:", selectedLevel);
+
+    if (selectedLevel && selectedLevel.classes) {
+      console.log("🔵 Classes du niveau:", selectedLevel.classes);
+      setListClass(selectedLevel.classes);
+    } else {
+      console.log("❌ Aucune classe trouvée pour ce niveau");
+      setListClass([]);
+    }
+  };
+
+  // Gestion du changement de genre
+  const handleGenderChange = (selectedOption: { value: number }) => {
     setGenderValue(selectedOption.value);
   };
 
-  // gestion du select de la Classe
-
-  const [ClassValue, setClassValue] = useState(0);
-  const [listClass, setListClass] = useState<
-    { value: number; label: string }[]
-  >([]);
-  const handleClassChange = (selectedOption: {
-    value: React.SetStateAction<number>;
-  }) => {
+  // Gestion du changement de classe
+  const handleClassChange = (selectedOption: { value: number }) => {
     setClassValue(selectedOption.value);
   };
 
-  // gestion de ...
-
-  // const [listLevel, setListLevel] = useState(baseLevelList);
-
-  const goToPreviousStep = () => {
-    storeInLocalStorage();
-    previousStep();
-  };
-
-  // nom de l'équipe
-  const [teamName, setTeamName] = useState("");
+  // Handlers pour les champs
   const handleTeamNameChange = (event: { target: { value: string } }) => {
     setTeamName(event.target.value);
   };
 
-  // matricule chef
-  const [matricule, setMatricule] = useState("");
-  const handleMAtriculeChange = (event: { target: { value: string } }) => {
+  const handleMatriculeChange = (event: { target: { value: string } }) => {
     setMatricule(event.target.value);
   };
 
-  // nom du chef
-  const [lastname, setLastname] = useState("");
   const handleLastnameChange = (event: { target: { value: string } }) => {
     setLastname(event.target.value);
   };
 
-  // prenom du chef
-  const [firstname, setFirstname] = useState("");
   const handleFirstNameChange = (event: { target: { value: string } }) => {
     setFirstname(event.target.value);
   };
 
-  // email du chef
-  const [email, setEmail] = useState("");
   const handleEmailChange = (event: { target: { value: string } }) => {
     setEmail(event.target.value);
   };
 
-  // store in localStorage
-
+  // Sauvegarder dans le localStorage
   const storeInLocalStorage = () => {
-    const leaderInformation = {
+    const leaderInformation: LeaderInformation = {
       level: filterLevelValue,
       teamName: teamName,
       matricule: matricule,
@@ -203,7 +236,11 @@ if (storedLeaderInfo) {
     };
 
     secureLocalStorage.setItem("leaderInformation", leaderInformation);
-    return;
+  };
+
+  const goToPreviousStep = () => {
+    storeInLocalStorage();
+    previousStep();
   };
 
   const handleSubmit = (event: { preventDefault: () => void }) => {
@@ -216,6 +253,16 @@ if (storedLeaderInfo) {
     <div className="w-full">
       {isReady ? (
         <div className="w-full mx-auto max-w-3xl md:bg-white md:p-9 mb-9 md:shadow-xl md:rounded-3xl">
+          {/* DEBUG INFO - Retirez ce bloc en production */}
+          <div style={{ padding: '10px', background: '#f0f0f0', marginBottom: '10px', fontSize: '12px' }}>
+            <strong>Debug Info:</strong><br />
+            Niveaux chargés: {baseLevel.length}<br />
+            Classes disponibles: {listClass.length}<br />
+            Niveau sélectionné: {filterLevelValue}<br />
+            Classe sélectionnée: {ClassValue}<br />
+            comeFromEsatic: {comeFromEsatic ? "Oui" : "Non"}
+          </div>
+
           <form
             className="space-y-6 py-9 mx-auto"
             onSubmit={handleSubmit}
@@ -228,9 +275,17 @@ if (storedLeaderInfo) {
                 </h5>
                 <div className="flex flex-col gap-3">
                   <Labelui label="Niveau" />
+                  
+                  {/* Affichage du nombre de niveaux */}
+                  {baseLevel.length === 0 && (
+                    <p style={{ color: 'red', fontSize: '12px' }}>
+                      ⚠️ Aucun niveau disponible
+                    </p>
+                  )}
+                  
                   <SelectUi
-                    placeholder="Choisissez"
-                    options={baseLevelList}
+                    placeholder="Choisissez un niveau"
+                    options={baseLevel}
                     filterValue={filterLevelValue}
                     onChange={handleLevelChange}
                   />
@@ -252,13 +307,13 @@ if (storedLeaderInfo) {
                   Chef de l&apos;équipe
                 </h5>
 
-                <div className="flex flex-col gap-3 ">
+                <div className="flex flex-col gap-3">
                   {comeFromEsatic === true ? (
                     <div className="flex flex-col gap-3">
                       <Labelui label="Matricule" />
                       <InputField
-                      label="Matricule"
-                        onChange={handleMAtriculeChange}
+                        label="Matricule"
+                        onChange={handleMatriculeChange}
                         value={matricule}
                         length={18}
                         placeholder="XX-ESATICXXXXX"
@@ -269,17 +324,17 @@ if (storedLeaderInfo) {
 
                   <Labelui label="Nom" />
                   <InputField
-                  label="Nom"
+                    label="Nom"
                     onChange={handleLastnameChange}
                     value={lastname}
-                    placeholder="koffi"
+                    placeholder="Koffi"
                     length={12}
                     type="text"
                   />
 
                   <Labelui label="Prénom" />
                   <InputField
-                   label="Prénom"
+                    label="Prénom"
                     onChange={handleFirstNameChange}
                     value={firstname}
                     placeholder="Ange"
@@ -289,7 +344,7 @@ if (storedLeaderInfo) {
 
                   <Labelui label="Email" />
                   <InputField
-                  label="Email"
+                    label="Email"
                     onChange={handleEmailChange}
                     value={email}
                     placeholder="koffi@gmail.com"
@@ -299,15 +354,23 @@ if (storedLeaderInfo) {
 
                   <Labelui label="Genre" />
                   <SelectUi
-                    placeholder="Choisissez"
+                    placeholder="Choisissez un genre"
                     options={listGender}
                     filterValue={GenderValue}
                     onChange={handleGenderChange}
                   />
 
                   <Labelui label={comeFromEsatic ? "Classe" : "École"} />
+                  
+                  {/* Affichage du nombre de classes */}
+                  {listClass.length === 0 && filterLevelValue !== 0 && (
+                    <p style={{ color: 'red', fontSize: '12px' }}>
+                      ⚠️ Aucune classe disponible pour ce niveau
+                    </p>
+                  )}
+                  
                   <SelectUi
-                    placeholder="Choisissez"
+                    placeholder={comeFromEsatic ? "Choisissez une classe" : "Choisissez une école"}
                     options={listClass}
                     filterValue={ClassValue}
                     onChange={handleClassChange}

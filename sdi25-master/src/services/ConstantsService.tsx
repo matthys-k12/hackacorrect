@@ -47,4 +47,8 @@ export const handleServiceGetClassList = async () => {
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
   }
+
+
+  
+  
 };
