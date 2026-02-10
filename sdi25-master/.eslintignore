@@ -1,0 +1,6 @@
+src/screens/auth/registration/steps/RegistrationStep2.tsx
+src/screens/auth/registration/steps/RegistrationStep3.tsx
+src/services/ConstantsService.tsx
+node_modules
+build
+dist
