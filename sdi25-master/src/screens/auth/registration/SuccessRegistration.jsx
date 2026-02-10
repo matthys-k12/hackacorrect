@@ -10,7 +10,7 @@ export default function SuccessRegistration() {
   const goToWhatsApp = () => {
     //https://chat.whatsapp.com/GZX3JYvduuIBRLZr7ywqH6
     navigate("/hackathon/auth/LogInView");
-    window.open("https://chat.whatsapp.com/IKiHErOgI8i2yPXrAedGRM", "_blank");
+    window.open("https://chat.whatsapp.com/JK5sFrSt3V0JoBNrHJOhMl?mode=gi_t", "_blank");
   };
   return (
     <div className="h-screen w-screen background-p flex justify-center items-center">
