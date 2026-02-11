@@ -219,7 +219,7 @@ export default function TeamsView() {
               <td className="px-6 py-4">
                 <p
                   className={
-                    item.participants[0].chef === 1 ? "underline-offset-4" : ""
+                   item?.participants?.[0]?.chef === 1 ? "underline-offset-4" : ""
                   }
                 >
                   -{" "}
