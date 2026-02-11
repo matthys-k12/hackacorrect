@@ -223,9 +223,9 @@ export default function TeamsView() {
                   }
                 >
                   -{" "}
-                  {item.participants.length !== 0
+                  {item.participants?.[0]?.etudiant
                     ? `${item.participants[0].etudiant.nom} ${item.participants[0].etudiant.prenom}`
-                    : ""}
+                    : "Participant manquant"}
                 </p>
                 <p
                   className={
