@@ -18,27 +18,41 @@ export default function PreselectionView() {
   const navigate = useNavigate();
 
   async function getQuizState() {
-    const result = await handleServiceGetQuizState();
-    switch (result.canpasstest) {
-    case 0:
-      setState(true);
-      setMessage("Vous pouvez désormais passer le test 💀");
-      break;
-    case 1:
+    try {
+      const result = await handleServiceGetQuizState();
+
+      if (!result || result.canpasstest === undefined) {
+        setState(false);
+        setMessage("Erreur lors du chargement du test.");
+        return;
+      }
+
+      switch (result.canpasstest) {
+        case 0:
+          setState(true);
+          setMessage("Vous pouvez désormais passer le test 💀");
+          break;
+        case 1:
+          setState(false);
+          setMessage("Le test n'est pas disponible pour ce niveau 🥲");
+          break;
+        case 2:
+          setState(false);
+          setMessage("Le test est fermé pour le moment... 😭");
+          break;
+        case 3:
+          setState(false);
+          setMessage("Vous avez déjà passé le quiz... 😭");
+          break;
+        default:
+          setState(false);
+          break;
+      }
+
+    } catch (error) {
+      console.error("Erreur quiz state :", error);
       setState(false);
-      setMessage("Le test n'est pas disponible pour ce niveau 🥲");
-      break;
-    case 2:
-      setState(false);
-      setMessage("Le test est fermé pour le moment... 😭");
-      break;
-    case 3:
-      setState(false);
-      setMessage("Vous avez déjà passé le quiz... 😭");
-      break;
-    default:
-      setState(false);
-      break;
+      setMessage("Impossible de récupérer l'état du test.");
     }
   }
 
