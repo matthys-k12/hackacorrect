@@ -10,8 +10,8 @@ export const handleServiceGetHackathonList = async () => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/api/hackathon/render`;
-    const response = await axios.get(uri);
+    const uri = ${apiUrl}/api/classe/create;
+    const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
