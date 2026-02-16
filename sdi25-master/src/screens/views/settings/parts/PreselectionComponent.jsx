@@ -297,29 +297,14 @@ export default function PreselectionComponent() {
                   <div className="mt-6"></div>
                   <InputField
                     onClick={() => {
-                        <div>
-                          {(item.responses || []).map((el, ind) => (
-                            <div className="flex justify-between" key={ind}>
-                              <p
-                                className={`${
-                                  el.score > 0
-                                    ? "text-green-500"
-                                    : "text-gray-600"
-                                } text-[15px] mb-6}`}
-                              >
-                                Réponse {ind + 1} : {el.content} --- {el.score} {" "}
-                                pts
-                              </p>
-                              <button onClick={() => handleDeleteAnswer(el.id)}>
-                                <FontAwesomeIcon
-                                  className="text-red-500 text-lg"
-                                  icon={faTrash}
-                                />
-                              </button>
-                            </div>
-                          ))}
-                        </div>
-                    <Accordion.Panel>
+                      return;
+                    }}
+                    type="text"
+                    placeholder="Nouvelle question..."
+                    value={questionValue}
+                    onChange={handleChangeQuestionValue}
+                  />
+                  <Accordion.Panel>
                       <Accordion.Title className="font-bold">
                         Question {index + 1} : {item.content}
                         <span
@@ -387,7 +372,7 @@ export default function PreselectionComponent() {
                       </Accordion.Title>
                       <Accordion.Content>
                         <div>
-                          {item.responses.map((el, ind) => (
+                          {(item.responses || []).map((el, ind) => (
                             <div className="flex justify-between" key={ind}>
                               <p
                                 className={`${
