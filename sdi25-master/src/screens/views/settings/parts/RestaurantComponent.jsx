@@ -141,8 +141,11 @@ export default function RestaurantComponent() {
     setIsLoading(true);
     handleServiceGetMeal().then((result) => {
       if (result) {
-        setFoodList(result.repas);
-        setDrinkList(result.collations);
+        setFoodList(Array.isArray(result.repas) ? result.repas : []);
+        setDrinkList(Array.isArray(result.collations) ? result.collations : []);
+      } else {
+        setFoodList([]);
+        setDrinkList([]);
       }
       setIsLoading(false);
     });

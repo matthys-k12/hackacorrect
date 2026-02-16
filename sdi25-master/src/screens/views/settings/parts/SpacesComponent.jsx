@@ -26,7 +26,7 @@ export default function SpacesComponent() {
   async function getClassList() {
     setIsLoading(true);
     const result = await handleServiceGetRooms();
-    setClassList(result);
+    setClassList(Array.isArray(result) ? result : []);
     setIsLoading(false);
   }
 

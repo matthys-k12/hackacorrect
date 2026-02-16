@@ -73,19 +73,23 @@ export default function DistributeComponent() {
     handleServiceGetDistribution().then((result) => {
       setIsLoading(false);
       if (result) {
-        let teams = result.equipes.map((item) => ({
-          value: item.id,
-          label: item.nom,
-        }));
+        let teams = Array.isArray(result.equipes)
+          ? result.equipes.map((item) => ({
+              value: item.id,
+              label: item.nom,
+            }))
+          : [];
         setTeamList(teams);
 
-        let rooms = result.salles.map((item) => ({
-          value: item.id,
-          label: item.libelle,
-        }));
+        let rooms = Array.isArray(result.salles)
+          ? result.salles.map((item) => ({
+              value: item.id,
+              label: item.libelle,
+            }))
+          : [];
         setRoomList(rooms);
 
-        setListDistribution(result.repartitions);
+        setListDistribution(Array.isArray(result.repartitions) ? result.repartitions : []);
       }
     });
   }

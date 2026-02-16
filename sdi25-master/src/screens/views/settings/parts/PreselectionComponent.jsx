@@ -249,11 +249,15 @@ export default function PreselectionComponent() {
   useEffect(() => {
     setIsLoading(true);
     handleServiceGetLevelsList({ esatic: 1 }).then((result) => {
-      const temp = result.niveaux.map((item) => ({
-        value: item.id,
-        label: item.libelle,
-      }));
-      setLevelList(temp);
+      if (result && Array.isArray(result.niveaux)) {
+        const temp = result.niveaux.map((item) => ({
+          value: item.id,
+          label: item.libelle,
+        }));
+        setLevelList(temp);
+      } else {
+        setLevelList([]);
+      }
       setIsLoading(false);
     });
   }, []);
@@ -293,28 +297,28 @@ export default function PreselectionComponent() {
                   <div className="mt-6"></div>
                   <InputField
                     onClick={() => {
-                      return;
-                    }}
-                    type="text"
-                    placeholder="Nouvelle question..."
-                    value={questionValue}
-                    onChange={handleChangeQuestionValue}
-                  />
-                </div>
-                <Button
-                  onClick={() => handleCreateQuizQuestion()}
-                  type="submit"
-                  label="Ajouter la question"
-                  isReady={true}
-                  isLoading={false}
-                />
-              </div>
-            </div>
-            <section className="max-w-xl lg:w-3/5 lg:mt-0 mt-9 w-full overflow-auto h-[600px] p-4">
-              <h1 className="mt-9 text-2xl font-bold">Quiz du niveau</h1>
-              {quizList.length > 0 ? quizList.map((item, index) => (
-                <div className="flex flex-col gap-4 mt-4" key={index}>
-                  <Accordion>
+                        <div>
+                          {(item.responses || []).map((el, ind) => (
+                            <div className="flex justify-between" key={ind}>
+                              <p
+                                className={`${
+                                  el.score > 0
+                                    ? "text-green-500"
+                                    : "text-gray-600"
+                                } text-[15px] mb-6}`}
+                              >
+                                Réponse {ind + 1} : {el.content} --- {el.score} {" "}
+                                pts
+                              </p>
+                              <button onClick={() => handleDeleteAnswer(el.id)}>
+                                <FontAwesomeIcon
+                                  className="text-red-500 text-lg"
+                                  icon={faTrash}
+                                />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
                     <Accordion.Panel>
                       <Accordion.Title className="font-bold">
                         Question {index + 1} : {item.content}

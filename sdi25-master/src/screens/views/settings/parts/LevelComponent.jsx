@@ -90,16 +90,21 @@ export default function LevelComponent() {
     setIsLoading(true);
     handleServiceGetClassList().then((result) => {
       if (result) {
-        setClassList(result.classes);
+        setClassList(Array.isArray(result.classes) ? result.classes : []);
 
-        const temp = result.niveaux.map((item) => ({
-          value: item.id,
-          label: item.libelle,
-        }));
+        const temp = Array.isArray(result.niveaux)
+          ? result.niveaux.map((item) => ({
+              value: item.id,
+              label: item.libelle,
+            }))
+          : [];
 
         setLevelList(temp);
-        setIsLoading(false);
+      } else {
+        setClassList([]);
+        setLevelList([]);
       }
+      setIsLoading(false);
     });
   }
 
