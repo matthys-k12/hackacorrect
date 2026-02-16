@@ -381,10 +381,8 @@ export default function PreselectionComponent() {
                             <div className="flex justify-between" key={ind}>
                               <p
                                 className={`${
-                                  el.score > 0
-                                    ? "text-green-500"
-                                    : "text-gray-600"
-                                } text-[15px] mb-6}`}
+                                  el.score > 0 ? "text-green-500" : "text-gray-600"
+                                } text-[15px] mb-6`}
                               >
                                 Réponse {ind + 1} : {el.content} --- {el.score}{" "}
                                 pts
