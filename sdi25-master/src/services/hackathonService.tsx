@@ -12,8 +12,8 @@ export const handleServiceGetHackathonList = async () => {
   try {
     const uri = `${apiUrl}/api/hackathon/render`;
     const response = await axios.get(uri);
-    // Return the full response so callers can inspect `response.data`
-    return response;
+    // Return response.data so callers keep using `data.data` as before
+    return response.data;
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
   }
