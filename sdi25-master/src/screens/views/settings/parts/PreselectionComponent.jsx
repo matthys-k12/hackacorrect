@@ -304,7 +304,12 @@ export default function PreselectionComponent() {
                     value={questionValue}
                     onChange={handleChangeQuestionValue}
                   />
-                  <Accordion.Panel>
+                  <section className="max-w-xl lg:w-3/5 lg:mt-0 mt-9 w-full overflow-auto h-[600px] p-4">
+                    <h1 className="mt-9 text-2xl font-bold">Quiz du niveau</h1>
+                    {quizList.length > 0 ? quizList.map((item, index) => (
+                      <div className="flex flex-col gap-4 mt-4" key={index}>
+                        <Accordion>
+                          <Accordion.Panel>
                       <Accordion.Title className="font-bold">
                         Question {index + 1} : {item.content}
                         <span
