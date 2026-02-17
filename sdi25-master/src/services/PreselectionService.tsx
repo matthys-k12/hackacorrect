@@ -3,22 +3,22 @@ import { notify } from "../components/toast/toast.tsx";
 import secureLocalStorage from "react-secure-storage";
 import axios from "axios";
 
-const apiUrl = "/api";
+const apiUrl = process.env.REACT_APP_API_URL;
 
 export const handleServiceGetCurrentQuiz = async (data: object) => {
   axios.defaults.headers.common["Authorization"] =
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/preselection/render`;
+    const uri = `${apiUrl}/api/preselection/render`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      return response.data.data;
-    case false:
-      return [];
+      case true:
+        return response.data.data;
+      case false:
+        return [];
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -30,17 +30,17 @@ export const handleServiceCreateQuestion = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/question/create`;
+    const uri = `${apiUrl}/api/question/create`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      notify("success", "Question ajouée au quiz avec succès");
-      return true;
-    case false:
-      notify("error", response.data.message);
-      return false;
+      case true:
+        notify("success", "Question ajouée au quiz avec succès");
+        return true;
+      case false:
+        notify("error", response.data.message);
+        return false;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -52,17 +52,17 @@ export const handleServiceCreateAnswer = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/response/create`;
+    const uri = `${apiUrl}/api/response/create`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      notify("success", "Réponse ajouée à la question");
-      return true;
-    case false:
-      notify("error", response.data.message);
-      return false;
+      case true:
+        notify("success", "Réponse ajouée à la question");
+        return true;
+      case false:
+        notify("error", response.data.message);
+        return false;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -74,17 +74,17 @@ export const handleServiceDeleteAnswer = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/response/delete`;
+    const uri = `${apiUrl}/api/response/delete`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      notify("success", "Réponse supprimée avec succès");
-      return true;
-    case false:
-      notify("error", response.data.message);
-      return false;
+      case true:
+        notify("success", "Réponse supprimée avec succès");
+        return true;
+      case false:
+        notify("error", response.data.message);
+        return false;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -96,16 +96,16 @@ export const handleServiceDeleteQuestion = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/question/delete`;
+    const uri = `${apiUrl}/api/question/delete`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      return true;
-    case false:
-      notify("error", response.data.message);
-      return false;
+      case true:
+        return true;
+      case false:
+        notify("error", response.data.message);
+        return false;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -117,16 +117,16 @@ export const handleServiceUpdateQuestion = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/question/update`;
+    const uri = `${apiUrl}/api/question/update`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      return true;
-    case false:
-      notify("error", response.data.message);
-      return false;
+      case true:
+        return true;
+      case false:
+        notify("error", response.data.message);
+        return false;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -138,17 +138,17 @@ export const handleServiceChangeQuizState = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/quiz/toogle`;
+    const uri = `${apiUrl}/api/quiz/toogle`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      notify("success", "Le statut du quiz pour a bien été changé");
-      return true;
-    case false:
-      notify("error", response.data.message);
-      return false;
+      case true:
+        notify("success", "Le statut du quiz pour a bien été changé");
+        return true;
+      case false:
+        notify("error", response.data.message);
+        return false;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -160,16 +160,16 @@ export const handleServiceQualifyTeam = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/equipe/toogle`;
+    const uri = `${apiUrl}/api/equipe/toogle`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      return true;
-    case false:
-      notify("error", response.data.message);
-      return false;
+      case true:
+        return true;
+      case false:
+        notify("error", response.data.message);
+        return false;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -186,11 +186,11 @@ export const handleServiceQualifyAutomaticallyTeams = async (data: object) => {
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      return true;
-    case false:
-      notify("error", response.data.message);
-      return false;
+      case true:
+        return true;
+      case false:
+        notify("error", response.data.message);
+        return false;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -202,16 +202,16 @@ export const handleServiceOpenSessionQuizTeam = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/quiz/reset`;
+    const uri = `${apiUrl}/api/quiz/reset`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      return true;
-    case false:
-      notify("error", response.data.message);
-      return false;
+      case true:
+        return true;
+      case false:
+        notify("error", response.data.message);
+        return false;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");

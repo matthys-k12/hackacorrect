@@ -10,15 +10,15 @@ export const handleServiceGetHackathonList = async () => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/api/classe/create`;
-    const response = await axios.post(uri, data);
+    const uri = `${apiUrl}/api/hackathon/render`;
+    const response = await axios.get(uri);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      return response.data.data;
-    case false:
-      break;
+      case true:
+        return response.data.data;
+      case false:
+        break;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -30,18 +30,18 @@ export const handleServiceToggleHackathon = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/hackathon/tooglestate`;
+    const uri = `${apiUrl}/api/hackathon/tooglestate`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      notify("success", "Statut de l'hackathon modifié");
-      return true;
-    case false:
-      notify("error", "Une erreur s'est produite !");
-      return false;
-      break;
+      case true:
+        notify("success", "Statut de l'hackathon modifié");
+        return true;
+      case false:
+        notify("error", "Une erreur s'est produite !");
+        return false;
+        break;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -53,17 +53,17 @@ export const handleServiceCreateHackathon = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/hackathon/create`;
+    const uri = `${apiUrl}/api/hackathon/create`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      notify("success", "Un hackathon a bien été crée");
-      return true;
-    case false:
-      notify("error", "Une erreur s'est produite !");
-      break;
+      case true:
+        notify("success", "Un hackathon a bien été crée");
+        return true;
+      case false:
+        notify("error", "Une erreur s'est produite !");
+        break;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -75,17 +75,17 @@ export const handleServiceCreateClass = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/classe/create`;
+    const uri = `${apiUrl}/api/classe/create`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      notify("success", "Une classe a bien été créee");
-      return true;
-    case false:
-      notify("error", "Une erreur s'est produite !");
-      break;
+      case true:
+        notify("success", "Une classe a bien été créee");
+        return true;
+      case false:
+        notify("error", "Une erreur s'est produite !");
+        break;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite !");
@@ -102,12 +102,12 @@ export const handleServiceUpdateClass = async (data: object) => {
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      notify("success", "La classe a bien été mise à jour");
-      return true;
-    case false:
-      notify("error", response.data.message);
-      break;
+      case true:
+        notify("success", "La classe a bien été mise à jour");
+        return true;
+      case false:
+        notify("error", response.data.message);
+        break;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite");
@@ -119,17 +119,17 @@ export const handleServiceDeleteClass = async (data: object) => {
     "Bearer " + secureLocalStorage.getItem("session_token")!;
 
   try {
-    const uri = `${apiUrl}/classe/delete`;
+    const uri = `${apiUrl}/api/classe/delete`;
     const response = await axios.post(uri, data);
     const status = response.data.status;
 
     switch (status) {
-    case true:
-      notify("success", "La classe a bien été supprimée");
-      return true;
-    case false:
-      notify("error", response.data.message);
-      break;
+      case true:
+        notify("success", "La classe a bien été supprimée");
+        return true;
+      case false:
+        notify("error", response.data.message);
+        break;
     }
   } catch (error) {
     notify("error", "Une erreur s'est produite");
