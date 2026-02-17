@@ -22,15 +22,15 @@ export default function RestaurantView() {
   async function handleGetCommandList() {
     setIsLoading(true);
     const result = await handleServiceGetcommand();
-    setCommandList(result);
+    setCommandList(Array.isArray(result) ? result : []);
     setIsLoading(false);
   }
 
   async function handleGetAllRepas() {
     setIsLoading(true);
     const result = await handleServiceAllRepas();
-    setAllRepas(result.repas);
-    setNbEaters(result.nbEaters);
+    setAllRepas(Array.isArray(result?.repas) ? result.repas : []);
+    setNbEaters(result?.nbEaters || 0);
     setIsLoading(false);
   }
 
