@@ -227,7 +227,7 @@ const AppRouter = () => {
             </>
           ),
         },
-        {
+        /*{
           path: "hackathon/teaser/pannel",
           element: (
             <>
@@ -238,7 +238,7 @@ const AppRouter = () => {
               />
             </>
           ),
-        },
+        },*/
         {
           path: "hackathon/game/rank",
           element: (
@@ -293,7 +293,7 @@ const AppRouter = () => {
             </>
           ),
         },
-        {
+        /*{
           path: "hackathon/auth/SignInView",
           element: (
             <>
@@ -310,7 +310,7 @@ const AppRouter = () => {
               <Toaster />
             </>
           ),
-        },
+        },*/
       ],
     },
   ]);
